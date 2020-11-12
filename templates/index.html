@@ -1,0 +1,9 @@
+<title>Etusivu</title>
+<h1>Keskustelusovellus</h1>
+<h3>Keskustelusyöte</h3>
+{% if session.user_id %}
+Kirjautunut sisään.
+<a href="/new">Lähetä viesti</a> | <a href="/logout">Kirjaudu ulos</a>
+{% else %}
+<a href="/login">Kirjaudu sisään</a>
+{% endif %}
