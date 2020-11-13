@@ -1,10 +1,13 @@
 from app import app
 from flask import render_template, redirect, request, session
 import users
+import posts
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    print("indeksi")
+    list = posts.get_list()
+    return render_template("index.html",posts=list)
 
 @app.route("/login",methods=["GET","POST"])
 def login():
@@ -34,3 +37,14 @@ def register():
             return redirect("/")
         else:
             return "tämä tunnus on jo olemassa"
+
+@app.route("/new",methods=["GET","POST"])
+def new():
+    if request.method == "GET":
+        return render_template("new.html")
+    if request.method == "POST":
+        content = request.form["content"]
+        if posts.send(content):
+            return redirect("/")
+        else:
+            return "epäonnistui"
