@@ -1,6 +1,5 @@
-<title>Etusivu</title>
-<h1>Keskustelusovellus</h1>
-<h3>Keskustelusyöte</h3>
+<h2>/ch/{{ channel_name }}</h2>
+<p>
 <hr>
 {% for post in posts %}
 {{ post[0] }}
@@ -12,7 +11,7 @@
 {% endfor %}
 {% if session.user_id %}
 Kirjautunut sisään.
-<a href="/ch/main/new">Lähetä viesti</a> | <a href="/logout">Kirjaudu ulos</a>
+<a href="/ch/{{ channel_name }}/new">Lähetä viesti</a> | <a href="/logout">Kirjaudu ulos</a>
 {% else %}
 <a href="/login">Kirjaudu sisään</a>
 {% endif %}

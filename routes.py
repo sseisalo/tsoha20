@@ -2,11 +2,11 @@ from app import app
 from flask import render_template, redirect, request, session
 import users
 import posts
+import channels
 
 @app.route("/")
 def index():
-    print("indeksi")
-    list = posts.get_list()
+    list = posts.get_list("")
     return render_template("index.html",posts=list)
 
 @app.route("/login",methods=["GET","POST"])
@@ -38,13 +38,25 @@ def register():
         else:
             return "tämä tunnus on jo olemassa"
 
-@app.route("/new",methods=["GET","POST"])
-def new():
+@app.route("/ch/<string:channel_name>/new",methods=["GET","POST"])
+def new(channel_name):
     if request.method == "GET":
-        return render_template("new.html")
+        return render_template("new.html",channel_name=channel_name)
     if request.method == "POST":
         content = request.form["content"]
-        if posts.send(content):
+        if posts.send(content,channel_name):
             return redirect("/")
         else:
             return "epäonnistui"
+
+@app.route("/ch/<string:channel_name>")
+def channel(channel_name):
+    list = posts.get_list(channel_name)
+    if channels.is_channel(channel_name):
+        return render_template("channel.html",channel_name=channel_name,posts=list)
+    else: 
+        return "unluigi"
+
+@app.route("/ch/<string:channel_name>/<int:post_id>")
+def post(channel_name,post_id):
+    return render_template("post.html")
