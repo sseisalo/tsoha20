@@ -5,9 +5,14 @@ CREATE TABLE users (
     user_type INTEGER,
     CONSTRAINT CHK_user CHECK (user_type<=1 AND user_type>=0)
 );
+CREATE TABLE channels (
+    id SERIAL PRIMARY KEY,
+    name TEXT UNIQUE
+);
 CREATE TABLE posts (
     id SERIAL PRIMARY KEY,
     content TEXT,
+    channel_id INTEGER REFERENCES channels,
     user_id INTEGER REFERENCES users,
     sent_at TIMESTAMP
 );
