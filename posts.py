@@ -4,7 +4,7 @@ import channels
 
 def get_list(channel_name):
     if channel_name == "":
-        sql = "SELECT P.content, U.username, P.sent_at, P.channel_id, P.id FROM Posts P, Users U WHERE P.user_id = U.id ORDER BY P.id"
+        sql = "SELECT P.content, U.username, P.sent_at, C.name, P.id FROM Posts P, Users U, Channels C WHERE P.user_id = U.id AND C.id=P.channel_id ORDER BY P.id"
         result = db.session.execute(sql)
     else:
         sql = "SELECT P.content, U.username, P.sent_at, C.name, P.id FROM Posts P, Users U, Channels C WHERE P.user_id = U.id AND C.name=:channel_name AND C.id=P.channel_id ORDER BY P.id"
