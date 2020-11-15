@@ -1,13 +1,14 @@
 from app import app
-from flask import render_template, redirect, request, session
+from flask import render_template, redirect, request, session, url_for
 import users
 import posts
 import channels
+import comments
 
 @app.route("/")
 def index():
-    list = posts.get_list("")
-    return render_template("index.html",posts=list)
+    list = posts.get_posts("")
+    return render_template("index.html",posts=list,channel_name="main")
 
 @app.route("/login",methods=["GET","POST"])
 def login():
@@ -44,19 +45,29 @@ def new(channel_name):
         return render_template("new.html",channel_name=channel_name)
     if request.method == "POST":
         content = request.form["content"]
-        if posts.send(content,channel_name):
-            return redirect("/")
+        if len(content) > 100 or posts.send(content, channel_name) == False:
+            return "unluigo"
         else:
-            return "epäonnistui"
+            return redirect(url_for("channel", channel_name=channel_name))
 
 @app.route("/ch/<string:channel_name>")
 def channel(channel_name):
-    list = posts.get_list(channel_name)
+    list = posts.get_posts(channel_name)
     if channels.is_channel(channel_name):
         return render_template("channel.html",channel_name=channel_name,posts=list)
     else: 
         return "unluigi"
 
-@app.route("/ch/<string:channel_name>/<int:post_id>")
+@app.route("/ch/<string:channel_name>/<int:post_id>",methods=["GET","POST"])
 def post(channel_name,post_id):
-    return render_template("post.html")
+    list = comments.get_comments(post_id)
+    post = posts.get_post(post_id)
+    
+    if request.method == "GET":
+        return render_template("post.html",comments=list,post=post,channel_name=channel_name,post_id=post_id)
+    if request.method == "POST":
+        comment = request.form["comment"]
+        if len(comment) > 5000 or comments.send(comment, post_id) == False:
+            return "unluigo"
+        else:
+            return redirect(request.url)

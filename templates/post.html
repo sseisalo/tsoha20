@@ -1,0 +1,22 @@
+<h2>{{ post[0] }}</h2> 
+{{ post[1] }} 
+<hr>
+<form action="/ch/{{ channel_name }}/{{ post_id }}" method="POST">
+<textarea type="text" name="comment" id="content">Kirjoita tähän</textarea>
+<p>
+<input type="submit" value="Lähetä">
+</form>
+<p>
+{% if not comments %}
+Kommentteja ei vielä ole
+{% else %}
+
+{% for comment in comments %}
+{{ comment[1] }} | {{ comment[2].strftime("%d.%m.%y, %H:%M:%S") }}
+<p>
+{{ comment[0] }}
+<hr>
+<hr>
+{% endfor %}
+
+{% endif %}

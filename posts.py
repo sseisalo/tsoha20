@@ -21,3 +21,8 @@ def send(content, channel_name):
     db.session.execute(sql, {"content":content, "channel_id":channel_id, "user_id":user_id})
     db.session.commit()
     return True
+
+def get_post(post_id):
+    sql = "SELECT P.content, U.username FROM Posts P, Users U WHERE P.id=:post_id AND U.id=P.user_id"
+    result = db.session.execute(sql, {"post_id":post_id})
+    return result.fetchone()
