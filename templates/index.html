@@ -1,18 +1,3 @@
 <title>Etusivu</title>
 <h1>Keskustelusovellus</h1>
-<h3>Keskustelusyöte</h3>
-<hr>
-{% for post in posts %}
-{{ post[0] }}
-<p>
-{{ post[1] }} {{ post[2].strftime("%d.%m.%y, %H:%M:%S") }}
-<p>
-<a href="/ch/{{ post[3] }}/{{ post[4] }}">Kommentit</a>
-<hr>
-{% endfor %}
-{% if session.user_id %}
-Kirjautunut sisään.
-<a href="/ch/main/new">Lähetä viesti</a> | <a href="/logout">Kirjaudu ulos</a>
-{% else %}
-<a href="/login">Kirjaudu sisään</a>
-{% endif %}
+{% extends "layout.html" %}
