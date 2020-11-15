@@ -2,7 +2,7 @@ from db import db
 import users
 import channels
 
-def get_list(channel_name):
+def get_posts(channel_name):
     if channel_name == "":
         sql = "SELECT P.content, U.username, P.sent_at, C.name, P.id FROM Posts P, Users U, Channels C WHERE P.user_id = U.id AND C.id=P.channel_id ORDER BY P.id"
         result = db.session.execute(sql)

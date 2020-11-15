@@ -34,6 +34,8 @@ def register():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
+        if len(username) > 16:
+            return "liian pitkä"
         if users.register(username,password):
             return redirect("/")
         else:

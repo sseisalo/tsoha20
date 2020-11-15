@@ -1,7 +1,8 @@
 <h3>syöte</h3>
+<a href="/">etusivu</a>
 <hr>
 {% for post in posts %}
-{{ post[0] }}
+{{ post[0] }} &emsp; <a href="/ch/{{ post[3] }}">/{{ post[3] }}/</a>
 <p>
 {{ post[1] }} {{ post[2].strftime("%d.%m.%y, %H:%M:%S") }}
 <p>
@@ -11,7 +12,7 @@
 {% endfor %}
 {% if session.user_id %}
 Kirjautunut sisään.
-<a href="/ch/main/new">Lähetä viesti</a> | <a href="/logout">Kirjaudu ulos</a>
+<a href="/ch/{{ channel_name }}/new">Lähetä viesti</a> | <a href="/logout">Kirjaudu ulos</a>
 {% else %}
 <a href="/login">Kirjaudu sisään</a>
 {% endif %}
