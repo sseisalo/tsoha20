@@ -1,0 +1,31 @@
+body {
+    margin: auto;
+    margin-top: 70px;
+    max-width: 55em;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    background-color: grey;
+}
+
+.topnav {
+    width: 55em;
+    background-color: palegoldenrod;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    margin: auto;
+    border-radius: .3em;
+}
+
+.topnav h3 {
+    padding: 0px 10px;
+    float: left;
+}
+
+.topnav p {
+    padding: 4px 10px 0px;
+    float: right;
+}
+
+.topnav a {
+    text-decoration: none;
+}

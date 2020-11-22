@@ -1,11 +1,17 @@
 <h2>{{ post[0] }}</h2> 
 {{ post[1] }} 
 <hr>
+
+{% if session.user_id %}
 <form action="/ch/{{ channel_name }}/{{ post_id }}" method="POST">
-<textarea type="text" name="comment" id="content">Kirjoita tähän</textarea>
+<textarea type="text" name="comment" id="content" placeholder="Kirjoita tähän"></textarea>
 <p>
 <input type="submit" value="Lähetä">
 </form>
+{% else %}
+<a href="/login">Kirjaudu sisään</a>
+{% endif %}
+
 <p>
 {% if not comments %}
 Kommentteja ei vielä ole

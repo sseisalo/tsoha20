@@ -1,5 +1,24 @@
-<h3>syöte</h3>
-<a href="/">etusivu</a>
+<head>
+    <!DOCTYPE html>
+    <link rel="stylesheet" type="text/css" href="../static/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<div class="topnav">
+    <h3>Keskustelusovellus | <a href="/">etusivu</a></h3>
+    <h3>/ch/{{ channel_name }}</h3>
+    {% if session.user_id %}
+    <p>Kirjautunut sisään | <a href="/logout">Kirjaudu ulos</a></p>
+    {% else %}
+    <P><a href="/login">Kirjaudu sisään</a></P>
+    {% endif %}
+</div>
+
+<p>
+{% if session.user_id %}
+<a href="/ch/{{ channel_name }}/new">Lähetä viesti</a>
+{% endif %}
+
 <hr>
 {% for post in posts %}
 {{ post[0] }} &emsp; <a href="/ch/{{ post[3] }}">/{{ post[3] }}/</a>
