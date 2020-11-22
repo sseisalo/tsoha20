@@ -36,6 +36,8 @@ def register():
         password = request.form["password"]
         if len(username) > 16:
             return "liian pitkä"
+        elif len(username) < 3:
+            return "liian lyhyt"
         if users.register(username,password):
             return redirect("/")
         else:
@@ -47,7 +49,7 @@ def new(channel_name):
         return render_template("new.html",channel_name=channel_name)
     if request.method == "POST":
         content = request.form["content"]
-        if len(content) > 100 or posts.send(content, channel_name) == False:
+        if len(content) < 3 or len(content) > 100 or posts.send(content, channel_name) == False:
             return "unluigo"
         else:
             return redirect(url_for("channel", channel_name=channel_name))
@@ -69,7 +71,7 @@ def post(channel_name,post_id):
         return render_template("post.html",comments=list,post=post,channel_name=channel_name,post_id=post_id)
     if request.method == "POST":
         comment = request.form["comment"]
-        if len(comment) > 5000 or comments.send(comment, post_id) == False:
+        if len(comment) < 1 or len(comment) > 5000 or comments.send(comment, post_id) == False:
             return "unluigo"
         else:
             return redirect(request.url)
