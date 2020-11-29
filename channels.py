@@ -2,6 +2,7 @@ from db import db
 
 def is_channel(channel_name):
     sql = "SELECT * FROM channels WHERE name=:channel_name"
+    channel_name = channel_name.lower()
     result = db.session.execute(sql, {"channel_name":channel_name})
     channel = result.fetchone()
     if channel == None:
@@ -20,6 +21,7 @@ def create_channel(channel_name):
 
 def get_channel_id(channel_name):
     sql = "SELECT id FROM channels WHERE name=:channel_name"
+    channel_name = channel_name.lower()
     result = db.session.execute(sql, {"channel_name":channel_name})
     channel_id = result.fetchone()[0]
     return channel_id
