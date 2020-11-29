@@ -4,7 +4,7 @@ import channels
 
 def get_posts(channel_name):
     if channel_name == "":
-        sql = "SELECT P.content, U.username, P.sent_at, C.name, P.id, (SELECT COALESCE(SUM(vote),0) FROM votes WHERE post_id=P.id) FROM Posts P, Users U, Channels C WHERE P.user_id=U.id AND C.id=P.channel_id ORDER BY P.id DESC"
+        sql = "SELECT P.content, U.username, P.sent_at, C.name, P.id FROM Posts P, Users U, Channels C WHERE P.user_id=U.id AND C.id=P.channel_id ORDER BY P.id DESC"
         result = db.session.execute(sql)
     else:
         sql = "SELECT P.content, U.username, P.sent_at, C.name, P.id FROM Posts P, Users U, Channels C WHERE P.user_id = U.id AND C.name=LOWER(:channel_name) AND C.id=P.channel_id ORDER BY P.id DESC"
