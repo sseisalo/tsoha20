@@ -15,17 +15,21 @@
 </div>
 
 <div class="sidebar">
-    <div>
+    <div class="search">
         <form action="/ch/{{ channel_name }}/search" method="GET">
-            <textarea type="text" name="query" placeholder="Hae aloitusta tai kanavaa"></textarea>
+            <textarea type="text" name="query" placeholder="Hae aloitusta tai kanavaa" cols="35" rows="3"></textarea>
+            <br>
             <input type="submit" value="Hae">
         </form>
     </div>
-    {% if session.user_id %}
-    <div class="new_post">
-        <a href="/ch/{{ channel_name }}/new">Luo uusi aloitus</a>
-    </div>
-    {% endif %}
 </div>
+
+{% if session.user_id %}
+<div class="sidebar_new">
+    <a href="/ch/{{ channel_name }}/new">
+        <div class="new_post">Luo uusi aloitus</div>
+    </a>
+</div>
+{% endif %}
 
 {% block content %}{% endblock %}

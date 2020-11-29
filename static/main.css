@@ -43,11 +43,11 @@ form :not(.sidebar form){
     background-color: moccasin;
     overflow: hidden;
     border-radius: .3em;
-    margin: 10px 0px;
+    margin: .625em 0;
 }
 
 .post p {
-    padding: 0px 10px;
+    padding: 0 .625em;
     font-size: 125%;
 }
 
@@ -80,22 +80,31 @@ form :not(.sidebar form){
     right: 0;
     position: fixed;
     width: 20em;
-    height: 10em;
+    height: 5.8em;
     background-color: moccasin;
     border-radius: .3em;
     margin: 0 .5em;
 }
 
-.sidebar form {
+.search {
+    margin: .5em .5em;
     position: absolute;
-    top: 2em;
-    left: 1.5em;
 }
 
-.sidebar a {
+.sidebar_new {
+    right: 0;
+    top: 11.3em;
+    position: fixed;
+    width: 20em;
+    height: 5.8em;
+    background-color: moccasin;
+    border-radius: .3em;
+    margin: 0 .5em;
+}
+
+.new_post {
+    padding: 2.3em 7.5em 2.3em 5.5em;
     position: absolute;
     text-decoration: none;
     color: #000;
-    top: 7em;
-    left: 6.5em;
 }
