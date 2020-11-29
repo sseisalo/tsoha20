@@ -4,11 +4,12 @@ import users
 import posts
 import channels
 import comments
+import votes
 
 @app.route("/")
 def index():
     list = posts.get_posts("")
-    return render_template("index.html",posts=list,channel_name="main")
+    return render_template("feed_layout.html",posts=list,channel_name="main",title="Etusivu")
 
 @app.route("/login",methods=["GET","POST"])
 def login():
@@ -52,13 +53,14 @@ def new(channel_name):
         if len(content) < 3 or len(content) > 100 or posts.send(content, channel_name) == False:
             return "unluigo"
         else:
-            return redirect(url_for("channel", channel_name=channel_name))
+            return redirect(url_for("channel",channel_name=channel_name))
 
 @app.route("/ch/<string:channel_name>")
 def channel(channel_name):
     list = posts.get_posts(channel_name)
+    title = "/ch/" + channel_name
     if channels.is_channel(channel_name):
-        return render_template("channel.html",channel_name=channel_name,posts=list)
+        return render_template("feed_layout.html",channel_name=channel_name,posts=list,title=title)
     else: 
         return "unluigi"
 

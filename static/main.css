@@ -1,19 +1,18 @@
 body {
     margin: auto;
-    margin-top: 70px;
+    margin-top: 4.8em;
     max-width: 55em;
     font-family: 'Helvetica', 'Arial', sans-serif;
-    background-color: grey;
+    background-color: lightslategrey;
 }
 
 .topnav {
     width: 55em;
-    background-color: palegoldenrod;
+    background-color: navajowhite;
     overflow: hidden;
     position: fixed;
     top: 0;
     margin: auto;
-    border-radius: .3em;
 }
 
 .topnav h3 {

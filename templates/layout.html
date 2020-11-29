@@ -1,6 +1,6 @@
 <head>
     <!DOCTYPE html>
-    <link rel="stylesheet" type="text/css" href="../static/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/main.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
@@ -14,24 +14,18 @@
     {% endif %}
 </div>
 
-<p>
-{% if session.user_id %}
-<a href="/ch/{{ channel_name }}/new">Lähetä viesti</a>
-{% endif %}
+<div class="sidebar">
+    <div>
+        <form action="/ch/{{ channel_name }}/search" method="GET">
+            <textarea type="text" name="query" placeholder="Hae aloitusta tai kanavaa"></textarea>
+            <input type="submit" value="Hae">
+        </form>
+    </div>
+    {% if session.user_id %}
+    <div class="new_post">
+        <a href="/ch/{{ channel_name }}/new">Luo uusi aloitus</a>
+    </div>
+    {% endif %}
+</div>
 
-<hr>
-{% for post in posts %}
-{{ post[0] }} &emsp; <a href="/ch/{{ post[3] }}">/{{ post[3] }}/</a>
-<p>
-{{ post[1] }} {{ post[2].strftime("%d.%m.%y, %H:%M:%S") }}
-<p>
-<a href="/ch/{{ post[3] }}/{{ post[4] }}">Kommentit</a>
-<hr>
 {% block content %}{% endblock %}
-{% endfor %}
-{% if session.user_id %}
-Kirjautunut sisään.
-<a href="/ch/{{ channel_name }}/new">Lähetä viesti</a> | <a href="/logout">Kirjaudu ulos</a>
-{% else %}
-<a href="/login">Kirjaudu sisään</a>
-{% endif %}
