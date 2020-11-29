@@ -8,7 +8,7 @@
     <h3>Keskustelusovellus | <a href="/">etusivu</a></h3>
     <h3>/ch/{{ channel_name }}</h3>
     {% if session.user_id %}
-    <p>Kirjautunut sisään | <a href="/logout">Kirjaudu ulos</a></p>
+    <p>{{ session["user_name"] }} | <a href="/logout">Kirjaudu ulos</a></p>
     {% else %}
     <P><a href="/login">Kirjaudu sisään</a></P>
     {% endif %}
