@@ -12,9 +12,8 @@
 </div>
 {% endfor %}
 {% else %}
-<div class="empty">
-    <p>Täällä ei ole mitään. <a href="/ch/{{ channel_name }}/new">Luo ensimmäinen aloitus!</a></p>
-</div>
+<div class="empty"></div>
+<p class="empty-message">Täällä ei ole mitään. <a href="/ch/{{ channel_name }}/new">Luo ensimmäinen aloitus!</a></p>
 {% endif %}
 
 {% endblock %}
