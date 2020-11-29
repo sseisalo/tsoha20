@@ -29,3 +29,74 @@ body {
 .topnav a {
     text-decoration: none;
 }
+
+form :not(.sidebar form){
+    margin: 50% 20em 0% 20em;
+    padding: 3px;
+    background-color: moccasin;
+    overflow: hidden;
+    border-radius: .3em;
+}
+
+.post {
+    width: 55em;
+    height: 5.8em;
+    background-color: moccasin;
+    overflow: hidden;
+    border-radius: .3em;
+    margin: 10px 0px;
+}
+
+.post p {
+    padding: 0px 10px;
+    font-size: 125%;
+}
+
+#post_info {
+    font-size: 90%;
+}
+
+.post #votes {
+    right: 0;
+}
+
+.channel_suggestion {
+    width: 55em;
+    height: 5.8em;
+    background-color: moccasin;
+    overflow: hidden;
+    border-radius: .3em;
+    margin: 10px 0px;
+    position: relative;
+}
+
+#inner_sug {
+    position: absolute;
+    top: .6em;
+    left: 13em;
+    font-size: 125%;
+}
+
+.sidebar {
+    right: 0;
+    position: fixed;
+    width: 20em;
+    height: 10em;
+    background-color: moccasin;
+    border-radius: .3em;
+    margin: 0 .5em;
+}
+
+.sidebar form {
+    position: absolute;
+    top: 2em;
+    left: 1.5em;
+}
+
+.sidebar a {
+    position: absolute;
+    text-decoration: none;
+    color: #000;
+    top: 7em;
+    left: 6.5em;
+}

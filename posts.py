@@ -26,3 +26,11 @@ def get_post(post_id):
     sql = "SELECT P.content, U.username FROM Posts P, Users U WHERE P.id=:post_id AND U.id=P.user_id"
     result = db.session.execute(sql, {"post_id":post_id})
     return result.fetchone()
+
+def search_posts(query):
+    sql = "SELECT P.content, U.username, P.sent_at, C.name, P.id FROM Posts P, Users U, Channels C WHERE U.id=P.user_id AND C.id=P.channel_id AND (P.content ILIKE :query OR C.name=:query_channel)"
+    query_channel = query.lower()
+    query = "%"+query+"%"
+    print(query_channel)
+    result = db.session.execute(sql, {"query":query.lower(), "query_channel":query_channel})
+    return result.fetchall()

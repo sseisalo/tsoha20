@@ -75,3 +75,10 @@ def post(channel_name,post_id):
             return "unluigo"
         else:
             return redirect(request.url)
+
+@app.route("/ch/<string:channel_name>/search",methods=["GET"])
+def search(channel_name):
+    query = request.args.get("query")
+    list = posts.search_posts(query)
+
+    return render_template("search.html",channel_name=channel_name,posts=list,query=query)
