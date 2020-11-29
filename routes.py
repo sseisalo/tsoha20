@@ -4,7 +4,6 @@ import users
 import posts
 import channels
 import comments
-import votes
 
 @app.route("/")
 def index():
