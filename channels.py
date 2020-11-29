@@ -1,6 +1,9 @@
 from db import db
 
 def is_channel(channel_name):
+    if len(channel_name) > 30:
+        return False
+
     sql = "SELECT * FROM channels WHERE name=:channel_name"
     channel_name = channel_name.lower()
     result = db.session.execute(sql, {"channel_name":channel_name})
