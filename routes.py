@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, redirect, request, session, url_for
+from flask import render_template, redirect, request, session, url_for, flash
 import users
 import posts
 import channels
@@ -19,13 +19,16 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
         if users.login(username,password):
+            flash("Kirjauduttu sisään")
             return redirect("/")
         else:
-            return "väärä tunnus tai salasana"
+            flash("Kirjautuminen epäonnistui")
+            return redirect(url_for("login"))
 
 @app.route("/logout")
 def logout():
     users.logout()
+    flash("Kirjauduttu ulos")
     return redirect("/")
 
 @app.route("/register",methods=["GET","POST"])
@@ -36,13 +39,20 @@ def register():
         username = request.form["username"]
         password = request.form["password"]
         if len(username) > 16:
-            return "liian pitkä"
+            flash("Tunnus " + username + " on liian pitkä")
+            return redirect(url_for("register"))
         elif len(username) < 3:
-            return "liian lyhyt"
+            flash("Tunnus " + username + " on liian lyhyt")
+            return redirect(url_for("register"))
+        elif len(password) < 6:
+            flash("Salasanan tulee olla vähintään 6 merkkiä")
+            return redirect(url_for("register"))
         if users.register(username,password):
+            flash("Rekisteröinti onnistui")
             return redirect("/")
         else:
-            return "tämä tunnus on jo olemassa"
+            flash("Tämä tunnus on jo olemassa")
+            return redirect(url_for("register"))
 
 @app.route("/ch/<string:channel_name>/new",methods=["GET","POST"])
 def new(channel_name):
@@ -50,9 +60,17 @@ def new(channel_name):
         return render_template("new.html",channel_name=channel_name)
     if request.method == "POST":
         content = request.form["content"]
-        if len(content) < 3 or len(content) > 100 or posts.send(content, channel_name) == False:
-            return "unluigo"
+        if len(content) < 3:
+            flash("Aloitus on liian lyhyt! \n (alle 3 merkkiä)")
+            return redirect(url_for("new",channel_name=channel_name))
+        elif len(content) > 200:
+            flash("Aloitus on liian pitkä! \n (yli 200 merkkiä)")
+            return redirect(url_for("new",channel_name=channel_name))
+        elif posts.send(content, channel_name) == False:
+            flash("Aloituksen luominen epäonnistui")
+            return redirect(url_for("new",channel_name=channel_name))
         else:
+            flash("Aloitus luotu")
             return redirect(url_for("channel",channel_name=channel_name))
 
 @app.route("/ch/<string:channel_name>")
@@ -61,8 +79,9 @@ def channel(channel_name):
     title = "/ch/" + channel_name
     if channels.is_channel(channel_name):
         return render_template("feed_layout.html",channel_name=channel_name,posts=list,title=title)
-    else: 
-        return "unluigi"
+    else:
+        flash("Kanavaa " + channel_name + " ei ole olemassa")
+        return redirect("/")
 
 @app.route("/ch/<string:channel_name>/<int:post_id>",methods=["GET","POST"])
 def post(channel_name,post_id):
@@ -73,9 +92,17 @@ def post(channel_name,post_id):
         return render_template("post.html",comments=list,post=post,channel_name=channel_name,post_id=post_id)
     if request.method == "POST":
         comment = request.form["comment"]
-        if len(comment) < 1 or len(comment) > 5000 or comments.send(comment, post_id) == False:
-            return "unluigo"
+        if len(comment) < 1:
+            flash("Viesti oli tyhjä")
+            return redirect(url_for("post",channel_name=channel_name,post_id=post_id))
+        elif len(comment) > 5000:
+            flash("Viestin koko ylitti maksimin! (5000 merkkiä)")
+            return redirect(url_for("post",channel_name=channel_name,post_id=post_id))
+        elif comments.send(comment, post_id) == False:
+            flash("Viestin lähetys epäonnistui")
+            return redirect(url_for("post",channel_name=channel_name,post_id=post_id))
         else:
+            flash("Viesti lähetetty")
             return redirect(request.url)
 
 @app.route("/ch/<string:channel_name>/search",methods=["GET"])

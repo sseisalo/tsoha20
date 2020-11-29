@@ -108,3 +108,41 @@ form :not(.sidebar form){
     text-decoration: none;
     color: #000;
 }
+
+.error-messages {
+    overflow: hidden;
+    position: fixed;
+    left: 0;
+    width: 22em;
+    height: 100%;
+    margin: 0 .5em;
+    z-index: -1;
+}
+
+.message {
+    margin: .625em 0;
+    position: absolute;
+    background-color: #B7D7E8;
+    padding: .3em;
+    width: 20em;
+    border-radius: .3em;
+    min-height: 3.4em;
+    overflow-wrap: break-word;
+}
+
+.empty {
+    position: fixed;
+    width: 55em;
+    height: 97.5%;
+    background-color: #c3dbe9;
+    overflow: hidden;
+    border-radius: .3em;
+    z-index: -1;
+}
+
+.empty p {
+    padding: 10em 6.5em;
+    font-size: 150%;
+    font-weight: bold;
+    text-decoration: none;
+}
