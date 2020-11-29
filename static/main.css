@@ -65,10 +65,6 @@ form:not(#search-form):not(#comment-form){
     padding: 0 .925em;
 }
 
-.post #votes {
-    right: 0;
-}
-
 .channel_suggestion {
     width: 55em;
     height: 5.8em;
