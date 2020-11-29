@@ -2,18 +2,18 @@
 
 {% block content %}
 
+<div class="empty"></div>
+
 <h2>{{ post[0] }}</h2> 
 {{ post[1] }} 
 <hr>
 
 {% if session.user_id %}
-<form action="/ch/{{ channel_name }}/{{ post_id }}" method="POST">
-<textarea type="text" name="comment" id="content" placeholder="Kirjoita tähän"></textarea>
+<form id="comment-form" action="/ch/{{ channel_name }}/{{ post_id }}" method="POST">
+<textarea type="text" name="comment" id="content" placeholder="Kirjoita tähän" rows="4" cols="30"></textarea>
 <br>
 <input type="submit" value="Lähetä">
 </form>
-{% else %}
-<a href="/login">Kirjaudu sisään</a>
 {% endif %}
 
 <p>
@@ -22,11 +22,10 @@ Kommentteja ei vielä ole
 {% else %}
 
 {% for comment in comments %}
-{{ comment[1] }} | {{ comment[2].strftime("%d.%m.%y, %H:%M:%S") }}
-<p>
-{{ comment[0] }}
-<hr>
-<hr>
+<div class="post">
+    <p id="post_info">{{ comment[1] }} | {{ comment[2].strftime("%d.%m.%y, %H:%M:%S") }}</p>
+    <p>{{ comment[0] }}</p>
+</div>
 {% endfor %}
 
 {% endif %}

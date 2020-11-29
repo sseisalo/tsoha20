@@ -1,21 +1,11 @@
-<head>
-    <!DOCTYPE html>
-    <link rel="stylesheet" type="text/css" href="/static/main.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
+{% extends "layout.html" %}
 
-<div class="topnav">
-    <h3>Keskustelusovellus | <a href="/">etusivu</a></h3>
-    <h3>/ch/{{ channel_name }}</h3>
-    {% if session.user_id %}
-    <p>Kirjautunut sisään | <a href="/logout">Kirjaudu ulos</a></p>
-    {% else %}
-    <P><a href="/login">Kirjaudu sisään</a></P>
-    {% endif %}
-</div>
+{% block content %}
+<div class="empty"></div>
 
 <form action="/ch/{{ channel_name }}/new" method="POST">
 <textarea type="text" name="content" placeholder="Kirjoita tähän"></textarea>
 <p>
 <input type="submit" value="Lähetä">
 </form>
+{% endblock %}

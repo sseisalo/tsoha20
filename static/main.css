@@ -3,12 +3,22 @@ body {
     margin-top: 4.8em;
     max-width: 55em;
     font-family: 'Helvetica', 'Arial', sans-serif;
-    background-color: lightslategrey;
+    background-color: #87BDD8;
+}
+
+.topbar {
+    position: fixed;
+    background-color: #B7D7E8;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 3.715em;
+    z-index: -1;
 }
 
 .topnav {
     width: 55em;
-    background-color: navajowhite;
+    background-color: #B7D7E8;
     overflow: hidden;
     position: fixed;
     top: 0;
@@ -16,12 +26,12 @@ body {
 }
 
 .topnav h3 {
-    padding: 0px 10px;
+    padding: 0 .625em;
     float: left;
 }
 
 .topnav p {
-    padding: 4px 10px 0px;
+    padding: 0.25em .625em 0;
     float: right;
 }
 
@@ -29,21 +39,20 @@ body {
     text-decoration: none;
 }
 
-form :not(.sidebar form){
-    margin: 50% 20em 0% 20em;
-    padding: 3px;
-    background-color: moccasin;
+form:not(#search-form):not(#comment-form){
+    padding: 20em;
     overflow: hidden;
     border-radius: .3em;
 }
 
 .post {
     width: 55em;
-    height: 5.8em;
-    background-color: moccasin;
+    min-height: 5.8em;
+    background-color: #DAEBE8;
     overflow: hidden;
     border-radius: .3em;
     margin: .625em 0;
+    overflow-wrap: break-word;
 }
 
 .post p {
@@ -53,6 +62,7 @@ form :not(.sidebar form){
 
 #post_info {
     font-size: 90%;
+    padding: 0 .925em;
 }
 
 .post #votes {
@@ -62,7 +72,7 @@ form :not(.sidebar form){
 .channel_suggestion {
     width: 55em;
     height: 5.8em;
-    background-color: moccasin;
+    background-color: #DAEBE8;
     overflow: hidden;
     border-radius: .3em;
     margin: 10px 0px;
@@ -81,25 +91,31 @@ form :not(.sidebar form){
     position: fixed;
     width: 20em;
     height: 5.8em;
-    background-color: moccasin;
+    background-color: #B7D7E8;
     border-radius: .3em;
     margin: 0 .5em;
+    z-index: -1;
 }
 
 .search {
-    margin: .5em .5em;
+    margin: .3em .5em;
     position: absolute;
+}
+
+.search textarea {
+    margin: 0 0 0.4em;
 }
 
 .sidebar_new {
     right: 0;
-    top: 11.3em;
+    top: 11.23em;
     position: fixed;
     width: 20em;
     height: 5.8em;
-    background-color: moccasin;
+    background-color: #B7D7E8;
     border-radius: .3em;
     margin: 0 .5em;
+    z-index: -1;
 }
 
 .new_post {

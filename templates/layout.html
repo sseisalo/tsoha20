@@ -4,6 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
+<div class="topbar"></div>
+
 <div class="topnav">
     <h3>Keskustelusovellus | <a href="/">etusivu</a></h3>
     <h3>/ch/{{ channel_name }}</h3>
@@ -16,7 +18,7 @@
 
 <div class="sidebar">
     <div class="search">
-        <form action="/ch/{{ channel_name }}/search" method="GET">
+        <form id="search-form" action="/ch/{{ channel_name }}/search" method="GET">
             <textarea type="text" name="query" placeholder="Hae aloitusta tai kanavaa" cols="35" rows="3"></textarea>
             <br>
             <input type="submit" value="Hae">
