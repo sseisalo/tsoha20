@@ -2,14 +2,13 @@
 
 {% block content %}
 
-<div class="empty"></div>
-
-<form action="/register" method="post">
-Tunnus: <input type="text" name="username">
-<p>
-Salasana: <input type="password" name="password">
-<p>
-<input type="submit" value="Luo tunnus">
-</form>
-
+<div class="empty bg">
+    <form action="/register" method="post">
+        Tunnus: <input type="text" name="username">
+        <p>
+        Salasana: <input type="password" name="password">
+        <p>
+        <input type="submit" value="Luo tunnus">
+    </form>
+</div>
 {% endblock %}

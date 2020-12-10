@@ -6,9 +6,8 @@
 
 <div class="topbar"></div>
 
-<div class="topnav">
-    <h3>Keskustelusovellus | <a href="/">etusivu</a></h3>
-    <h3>/ch/{{ channel_name }}</h3>
+<div class="topnav col">
+    <h3>Keskustelusovellus | <a href="/">etusivu</a> | /ch/{{ channel_name }}</h3>
     {% if session.user_id %}
     <p>{{ session["user_name"] }} | <a href="/logout">Kirjaudu ulos</a></p>
     {% else %}
@@ -19,7 +18,7 @@
 <div class="sidebar">
     <div class="search">
         <form id="search-form" action="/ch/{{ channel_name }}/search" method="GET">
-            <textarea type="text" name="query" placeholder="Hae aloitusta tai kanavaa" cols="35" rows="3"></textarea>
+            <textarea type="text" name="query" placeholder="Hae aloitusta tai kanavaa" cols="35" rows="3" style="width: 100%;"></textarea>
             <br>
             <input type="submit" value="Hae">
         </form>
@@ -27,7 +26,7 @@
 </div>
 
 {% if session.user_id %}
-<div class="sidebar_new">
+<div class="sidebar-new sidebar">
     <a href="/ch/{{ channel_name }}/new">
         <div class="new_post">Luo uusi aloitus</div>
     </a>
@@ -36,11 +35,9 @@
 
 {% with messages = get_flashed_messages() %}
     {% if messages %}
-        <div class="error-messages">
         {% for message in messages %}
             <p class="message">{{ message }}</p>
         {% endfor %}
-        </div>
     {% endif %}
 {% endwith %}
 

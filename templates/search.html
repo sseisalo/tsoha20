@@ -6,15 +6,12 @@
 
 <div class="empty"></div>
 
-<div class="channel_suggestion">
-    <div id="inner_sug">Haku: "{{ query }}"
-        <p>
-        Kanava: <a href="/ch/{{ query }}">/ch/{{ query }}</a>
-    </div>
+<div class="post col">
+    <p class="search-result">Haku: "{{ query }} <br> Kanava: <a href="/ch/{{ query }}">/ch/{{ query }}"</p>
 </div>
 
 {% for post in posts %}
-<div class="post">
+<div class="post col">
     <p>{{ post[0] }}</p>
     <p id="post_info">{{ post[1] }} &ensp; {{ post[2].strftime("%d.%m.%y, %H:%M:%S") }} &ensp; <a href="/ch/{{ post[3] }}/{{ post[4] }}">Kommentit</a> &ensp; <a href="/ch/{{ post[3] }}">/{{ post[3] }}/</a></p>
 </div>

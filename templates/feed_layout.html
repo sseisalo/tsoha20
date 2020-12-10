@@ -6,14 +6,13 @@
 
 {% if posts %}
 {% for post in posts %}
-<div class="post">
+<div class="post col">
     <p>{{ post[0] }}</p>
     <p id="post_info">{{ post[1] }} &ensp; {{ post[2].strftime("%d.%m.%y, %H:%M:%S") }} &ensp; <a href="/ch/{{ post[3] }}/{{ post[4] }}">Kommentit</a> &ensp; <a href="/ch/{{ post[3] }}">/{{ post[3] }}/</a></p>
 </div>
 {% endfor %}
 {% else %}
-<div class="empty"></div>
-<p class="empty-message">Täällä ei ole mitään. <a href="/ch/{{ channel_name }}/new">Luo ensimmäinen aloitus!</a></p>
+<div class="empty col"><p class="empty-message">Täällä ei ole mitään. <a href="/ch/{{ channel_name }}/new">Luo ensimmäinen aloitus!</a></p></div>
 {% endif %}
 
 {% endblock %}
