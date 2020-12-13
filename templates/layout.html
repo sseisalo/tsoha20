@@ -7,7 +7,7 @@
 <div class="topbar"></div>
 
 <div class="topnav col">
-    <h3>Keskustelusovellus | <a href="/">etusivu</a> | /ch/{{ channel_name }}</h3>
+    <h3><a href="/">etusivu</a> | <a href="/ch/{{ channel_name }}">/ch/{{ channel_name }}</a></h3>
     {% if session.user_id %}
     <p>{{ session["user_name"] }} | <a href="/logout">Kirjaudu ulos</a></p>
     {% else %}
@@ -27,8 +27,8 @@
 
 {% if session.user_id %}
 <div class="sidebar-new sidebar">
-    <a href="/ch/{{ channel_name }}/new">
-        <div class="new_post">Luo uusi aloitus</div>
+    <a class="new-post" href="/ch/{{ channel_name }}/new">
+        <div id="new-post-text">Luo uusi aloitus</div>
     </a>
 </div>
 {% endif %}
@@ -36,7 +36,9 @@
 {% with messages = get_flashed_messages() %}
     {% if messages %}
         {% for message in messages %}
-            <p class="message">{{ message }}</p>
+            <div class="message">
+                <p>{{ message }}</p>
+            </div>
         {% endfor %}
     {% endif %}
 {% endwith %}

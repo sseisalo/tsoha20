@@ -26,7 +26,7 @@ body {
 .topnav h3 {
     padding: 0 .625em;
     position: absolute;
-    left: 0;
+    left: .3em;
 }
 
 .topnav p {
@@ -55,14 +55,34 @@ form:not(#search-form):not(#comment-form):not(#remove){
     overflow-wrap: break-word;
 }
 
-.post p:not(.search-result){
-    padding: 0 .625em;
+.post div:not(.search-result){
+    padding: 1em .625em 0em;
     font-size: 125%;
+}
+
+#post-title {
+    font-size: 150%;
+    font-weight: bold;
+    padding-left: .5em;
+}
+
+#post-creator {
+    font-size: 100%;
+    padding-left: .8em;
 }
 
 #post_info {
     font-size: 90%;
     padding: 0 .925em;
+}
+
+#comment-info {
+    font-size: 90%;
+    padding: .925em .925em 0;
+}
+
+#comment {
+    padding: 0 .625em;
 }
 
 .search-result {
@@ -84,11 +104,11 @@ form:not(#search-form):not(#comment-form):not(#remove){
 .search {
     margin: auto;
     padding: .3em 0;
-    width: 98%;
+    width: 90%;
 }
 
 .search textarea {
-    margin: 0 0 0.4em;
+    margin-bottom: 0.4em;
 }
 
 .sidebar-new {
@@ -101,20 +121,26 @@ form:not(#search-form):not(#comment-form):not(#remove){
     text-decoration: none;
 }
 
-.new_post {
-    padding: 2.3em 0%;
+.new-post {
     text-align: center;
     color: #000;
+    text-decoration: none;
+}
+
+#new-post-text {
+    padding: 2.3em 0%;
 }
 
 .message {
-    margin: .625em 0;
-    background-color: #B7D7E8;
-    padding: .3em;
-    width: 100%;
+    background-color: #ffdcb4;
     border-radius: .3em;
     min-height: 3.4em;
     overflow-wrap: break-word;
+}
+
+.message p {
+    padding: 1em 0;
+    text-align: center;
 }
 
 .empty {
@@ -132,7 +158,8 @@ form:not(#search-form):not(#comment-form):not(#remove){
 }
 
 .empty-message {
-    padding: 10em 6.5em;
+    padding: 30% 0;
+    text-align: center;
     font-size: 150%;
     font-weight: bold;
     text-decoration: none;
@@ -142,11 +169,15 @@ form:not(#search-form):not(#comment-form):not(#remove){
     width: 100%;
 }
 
+a:hover:not(.topnav a) {
+    background-color: moccasin;
+}
+
 @media only screen and (min-width: 1094px) {
     .col {width: 55%; margin: auto; margin-bottom: .625em;}
     .topnav {left: 22.5%;}
     .sidebar {width: 15%; margin: auto; margin-right: .5em; position: fixed; right: 0;}
     .sidebar-new {top: 11.5em;}
-    .empty {left: 22.75%; width: 54.5%; height: 97.5%;}
-    .message {left: 0; position: fixed; width: 15%;}
+    .empty {left: 22.75%; width: 54.5%; height: 90%;}
+    .message {position: fixed; width: 15%; min-height: 5.8em;}
 }
