@@ -2,46 +2,46 @@
 
 {% block content %}
 
-<div class="empty col"></div>
+<div class="empty">
 
-<div class="post col">
+<div id="post-head" class="post">
     <div>{{ post[0] }}</div>
     <p></p>
-    <div id="post_info" style="display: inline-block;">{{ post[1] }} &ensp; {{ post[2].strftime("%d.%m.%y, %H:%M:%S") }} &ensp; <a href="/ch/{{ post[3] }}/{{ post[4] }}">kommentit</a> &ensp; <a href="/ch/{{ post[3] }}">/{{ post[3] }}/</a>
+    <div class="votes" id="vote-parent-comment" style="line-height: 30%;">
+        <form class="votes" action="/votepost" method="GET">
+            {% if post[7]==1 %}
+            <a id="upvoted" href="javascript:;" onclick="parentNode.submit(); return false;">+</a>
+            <input type="hidden" name="vote" value=0>
+            {% else %}
+            <a href="javascript:;" onclick="parentNode.submit(); return false;">+</a>
+            <input type="hidden" name="vote" value=1>
+            {% endif %}
+            <input type="hidden" name="post_id" value="{{ post[4] }}">
+        </form>
+        <div class="votes">{{ post[6] }}</div>
+        <form class="votes" action="/votepost" method="GET">
+            {% if post[7]==-1 %}
+            <a id="minus-downvoted" href="javascript:;" onclick="parentNode.submit(); return false;">-</a>
+            <input type="hidden" name="vote" value=0>
+            {% else %}
+            <a id="minus" href="javascript:;" onclick="parentNode.submit(); return false;">-</a>
+            <input type="hidden" name="vote" value=-1>
+            {% endif %}
+            <input type="hidden" name="post_id" value="{{ post[4] }}">
+        </form>
+    </div>
+    <div id="post_info" style="display: inline-block;">{{ post[1] }} &ensp; {{ post[2].strftime("%d.%m.%y, %H:%M") }} &ensp; <a href="/ch/{{ post[3] }}/{{ post[4] }}">kommentit</a> &ensp; <a href="/ch/{{ post[3] }}">/{{ post[3] }}/</a>
     {% if session.user_type or session.user_id==post[5] %} 
          &ensp; <form id="remove" style="display: inline-block;" action="/removepost" method="GET">
             <a href="javascript:;" onclick="parentNode.submit(); return false;">poista</a>
             <input type="hidden" name="post_id" value="{{ post[4] }}">
         </form>
     {% endif %}
-        <div class="votes" id="vote-parent">
-            <form class="votes" action="/votepost" method="GET">
-                {% if post[7]==1 %}
-                <a id="upvoted" href="javascript:;" onclick="parentNode.submit(); return false;">+</a>
-                <input type="hidden" name="vote" value=0>
-                {% else %}
-                <a href="javascript:;" onclick="parentNode.submit(); return false;">+</a>
-                <input type="hidden" name="vote" value=1>
-                {% endif %}
-                <input type="hidden" name="post_id" value="{{ post[4] }}">
-            </form>
-            <div class="votes">{{ post[6] }}</div>
-            <form class="votes" action="/votepost" method="GET">
-                {% if post[7]==-1 %}
-                <a id="minus-downvoted" href="javascript:;" onclick="parentNode.submit(); return false;">-</a>
-                <input type="hidden" name="vote" value=0>
-                {% else %}
-                <a id="minus" href="javascript:;" onclick="parentNode.submit(); return false;">-</a>
-                <input type="hidden" name="vote" value=-1>
-                {% endif %}
-                <input type="hidden" name="post_id" value="{{ post[4] }}">
-            </form>
-        </div>
     </div>
 </div>
 
 
-<div class="col new-comment"> 
+<div class="new-comment"> 
 {% if session.user_id %}
 <form id="comment-form" action="/ch/{{ channel_name }}/{{ post_id }}" method="POST">
 <textarea type="text" name="comment" id="content" placeholder="Kirjoita tähän" rows="4" cols="30" style="width: 100%;"></textarea>
@@ -53,42 +53,42 @@
 
 <p>
 {% if not comments %}
-<div class="col">Kommentteja ei vielä ole</div>
+<div class="post"><div id="message-deleted">Kommentteja ei vielä ole</div></div>
 {% else %}
 
 {% for comment in comments %}
-<div class="post col">
+<div id="comment-div" class="post">
     {% if comment[4] == 1 %}
-    <div style="display: inline-block;" id="comment-info">{{ comment[1] }} | {{ comment[2].strftime("%d.%m.%y, %H:%M:%S") }}
+    <div class="votes" id="vote-parent-comment" style="line-height: 500%;">
+        <form class="votes" action="/votecomment" method="GET">
+            {% if comment[7]==1 %}
+            <a id="upvoted" href="javascript:;" onclick="parentNode.submit(); return false;">+</a>
+            <input type="hidden" name="vote" value=0>
+            {% else %}
+            <a href="javascript:;" onclick="parentNode.submit(); return false;">+</a>
+            <input type="hidden" name="vote" value=1>
+            {% endif %}
+            <input type="hidden" name="comment_id" value="{{ comment[3] }}">
+        </form>
+        <div class="votes">{{ comment[6] }}</div>
+        <form class="votes" action="/votecomment" method="GET">
+            {% if comment[7]==-1 %}
+            <a id="minus-downvoted" href="javascript:;" onclick="parentNode.submit(); return false;">-</a>
+            <input type="hidden" name="vote" value=0>
+            {% else %}
+            <a id="minus" href="javascript:;" onclick="parentNode.submit(); return false;">-</a>
+            <input type="hidden" name="vote" value=-1>
+            {% endif %}
+            <input type="hidden" name="comment_id" value="{{ comment[3] }}">
+        </form>
+    </div>
+    <div style="display: inline-block;" id="comment-info">{{ comment[1] }} | {{ comment[2].strftime("%d.%m.%y, %H:%M") }}
         {% if session.user_id==comment[5] %} 
         &ensp; <form style="display: inline-block;" id="remove" style="display: inline-block;" action="/removecomment" method="GET">
             <a href="javascript:;" onclick="parentNode.submit(); return false">poista</a>
             <input type="hidden" name="comment_id" value="{{ comment[3] }}">
         </form>
         {% endif %}
-        <div class="votes" id="vote-parent-comment">
-            <form class="votes" action="/votecomment" method="GET">
-                {% if comment[7]==1 %}
-                <a id="upvoted" href="javascript:;" onclick="parentNode.submit(); return false;">+</a>
-                <input type="hidden" name="vote" value=0>
-                {% else %}
-                <a href="javascript:;" onclick="parentNode.submit(); return false;">+</a>
-                <input type="hidden" name="vote" value=1>
-                {% endif %}
-                <input type="hidden" name="comment_id" value="{{ comment[3] }}">
-            </form>
-            <div class="votes">{{ comment[6] }}</div>
-            <form class="votes" action="/votecomment" method="GET">
-                {% if comment[7]==-1 %}
-                <a id="minus-downvoted" href="javascript:;" onclick="parentNode.submit(); return false;">-</a>
-                <input type="hidden" name="vote" value=0>
-                {% else %}
-                <a id="minus" href="javascript:;" onclick="parentNode.submit(); return false;">-</a>
-                <input type="hidden" name="vote" value=-1>
-                {% endif %}
-                <input type="hidden" name="comment_id" value="{{ comment[3] }}">
-            </form>
-        </div>
     </div>
     {% if session.user_id!=comment[5] %}
     <p>
@@ -102,4 +102,5 @@
 
 {% endif %}
 
+</div>
 {% endblock %}

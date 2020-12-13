@@ -24,15 +24,18 @@ body {
 }
 
 .topnav h3 {
-    padding: 0 .625em;
+    padding-right: .625em;
     position: absolute;
+    max-width: 50%;
     left: .3em;
 }
 
 .topnav p {
-    padding: 0.3em 1em 0;
+    max-width: 50%;
+    padding: 0.3em .5em 0;
     position: absolute;
     right: 0;
+    text-align: center;
 }
 
 .topnav a {
@@ -40,7 +43,7 @@ body {
 }
 
 form:not(#search-form):not(#comment-form):not(#remove):not(.votes){
-    padding: 20em 0;
+    padding: 2em 0;
     text-align: center;
     overflow: hidden;
 }
@@ -73,8 +76,10 @@ form:not(#search-form):not(#comment-form):not(#remove):not(.votes){
 }
 
 #post_info {
+    max-width: 50%;
     font-size: 90%;
     padding: 0 .925em;
+    overflow-wrap: break-word;
 }
 
 .votes {
@@ -83,7 +88,7 @@ form:not(#search-form):not(#comment-form):not(#remove):not(.votes){
 }
 
 .votes a{
-    padding: .5em .764em;
+    padding: .3em .5em;
     background-color: #ffdcb4;
     border-radius: 1em;
     text-decoration: none;
@@ -91,13 +96,12 @@ form:not(#search-form):not(#comment-form):not(#remove):not(.votes){
     color: #000;
 }
 
-#minus {
-    padding: .5em .89em;
+#minus, #minus-downvoted {
+    padding: .3em .64em;
 }
 
 #minus-downvoted {
     background-color: royalblue;
-    padding: .5em .89em;
 }
 
 #vote-parent {
@@ -105,7 +109,7 @@ form:not(#search-form):not(#comment-form):not(#remove):not(.votes){
 }
 
 #vote-parent, #vote-parent-comment {
-    right: 3%;
+    right: 5%;
     position: absolute;
 }
 
@@ -113,13 +117,22 @@ form:not(#search-form):not(#comment-form):not(#remove):not(.votes){
     background-color: orangered;
 }
 
+#post-head {
+    margin-top: 0;
+}
+
 #comment-info {
+    width: 50%;
     font-size: 90%;
     padding: 1.3em .925em 0;
 }
 
 #comment {
     padding: 0 .625em;
+}
+
+#comment-div {
+    margin-bottom: 0;
 }
 
 .search-result {
@@ -173,6 +186,7 @@ form:not(#search-form):not(#comment-form):not(#remove):not(.votes){
     border-radius: .3em;
     min-height: 3.4em;
     overflow-wrap: break-word;
+    margin-bottom: .625em;
 }
 
 .message p {
@@ -185,13 +199,12 @@ form:not(#search-form):not(#comment-form):not(#remove):not(.votes){
 }
 
 .empty {
-    position: fixed;
+    overflow-wrap: break-word;
+    position: sticky;
+    margin: auto;
     width: 100%;
-    height: 60%;
     background-color: #c3dbe9;
-    overflow: hidden;
     border-radius: .3em;
-    z-index: -1;
 }
 
 .bg {
@@ -217,9 +230,14 @@ a:hover:not(.topnav a) {
 @media only screen and (min-width: 1094px) {
     .col {width: 55%; margin: auto; margin-bottom: .625em;}
     .topnav {left: 22.5%;}
+    .topnav h3 {}
     .sidebar {width: 15%; margin: auto; margin-right: .5em; position: fixed; right: 0;}
     .sidebar-new {top: 11.25em;}
-    .empty {left: 22.75%; width: 54.5%; height: 90%;}
+    .empty {width: 54.5%; }
     .message {position: fixed; width: 15%; min-height: 5.8em;}
-    #vote-parent, #vote-parent-comment {right: 24%;}
+    #vote-parent {right: 24%;}
+    #vote-parent-comment {right: 1%;}
+    .votes a {padding: .5em .764em;}
+    #minus, #minus-downvoted {padding: .5em .89em;}
+    #comment-info {width: 100%;}
 }
