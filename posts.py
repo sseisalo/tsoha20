@@ -30,14 +30,26 @@ def send(content, channel_name):
 def get_post(post_id):
     user_id = users.user_id()
 
-    sql = "SELECT P.content, U.username, P.sent_at, C.name, P.id, P.user_id, (SELECT COALESCE(SUM(vote),0) FROM votes V WHERE V.post_id=P.id), (SELECT COALESCE(SUM(vote),0) FROM votes VO WHERE VO.user_id=:user AND VO.post_id=P.id) FROM Posts P, Users U, Channels C WHERE P.id=:post_id AND P.user_id=U.id AND C.id=P.channel_id AND P.visible=1"
+    sql = "SELECT P.content, U.username, P.sent_at, C.name, P.id, P.user_id, (SELECT COALESCE(SUM(vote),0) FROM votes V WHERE V.post_id=P.id), (SELECT COALESCE(SUM(vote),0) " \
+          "FROM votes VO WHERE VO.user_id=:user AND VO.post_id=P.id) FROM Posts P, Users U, Channels C WHERE P.id=:post_id AND P.user_id=U.id AND C.id=P.channel_id AND P.visible=1"
     result = db.session.execute(sql, {"user":user_id, "post_id":post_id})
     return result.fetchone()
 
-def search_posts(query):
+def search_posts_by_date(query):
     user_id = users.user_id()
     
-    sql = "SELECT P.content, U.username, P.sent_at, C.name, P.id, P.user_id, (SELECT COALESCE(SUM(vote),0) FROM votes V WHERE V.post_id=P.id), (SELECT COALESCE(SUM(vote),0) FROM votes VO WHERE VO.user_id=:user AND VO.post_id=P.id) FROM Posts P, Users U, Channels C WHERE U.id=P.user_id AND C.id=P.channel_id AND (P.content ILIKE :query OR C.name=:query_channel) AND P.visible=1"
+    sql = "SELECT P.content, U.username, P.sent_at, C.name, P.id, P.user_id, (SELECT COALESCE(SUM(vote),0) FROM votes V WHERE V.post_id=P.id), (SELECT COALESCE(SUM(vote),0) " \
+          "FROM votes VO WHERE VO.user_id=:user AND VO.post_id=P.id) FROM Posts P, Users U, Channels C WHERE U.id=P.user_id AND C.id=P.channel_id AND (P.content ILIKE :query OR C.name=:query_channel) AND P.visible=1"
+    query_channel = query.lower()
+    query = "%"+query+"%"
+    result = db.session.execute(sql, {"user":user_id, "query":query.lower(), "query_channel":query_channel})
+    return result.fetchall()
+
+def search_posts_by_votes(query):
+    user_id = users.user_id()
+    
+    sql = "SELECT P.content, U.username, P.sent_at, C.name, P.id, P.user_id, (SELECT COALESCE(SUM(vote),0) FROM votes V WHERE V.post_id=P.id), (SELECT COALESCE(SUM(vote),0) " \
+          "FROM votes VO WHERE VO.user_id=:user AND VO.post_id=P.id) FROM Posts P, Users U, Channels C WHERE U.id=P.user_id AND C.id=P.channel_id AND (P.content ILIKE :query OR C.name=:query_channel) AND P.visible=1 ORDER BY (SELECT SUM(vote) FROM votes V WHERE V.post_id=P.id) DESC"
     query_channel = query.lower()
     query = "%"+query+"%"
     result = db.session.execute(sql, {"user":user_id, "query":query.lower(), "query_channel":query_channel})

@@ -110,10 +110,16 @@ def post(channel_name,post_id):
 
 @app.route("/ch/<string:channel_name>/search/",methods=["GET"])
 def search(channel_name):
+    sort = request.args.get("sort")
     query = request.args.get("query")
-    list = posts.search_posts(query)
 
-    return render_template("search.html",channel_name=channel_name,posts=list,query=query)
+    if sort == "date":
+        list = posts.search_posts_by_date(query)
+        return render_template("search.html",channel_name=channel_name,posts=list,query=query)
+    
+    if sort == "votes":
+        list = posts.search_posts_by_votes(query)
+        return render_template("search.html",channel_name=channel_name,posts=list,query=query)
 
 @app.route("/removepost",methods=["GET"])
 def remove_post():
