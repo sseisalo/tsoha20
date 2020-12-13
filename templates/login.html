@@ -3,11 +3,11 @@
 {% block content %}
 
 <div class="empty bg"><form action="/login" method="post">
-    Tunnus: <input type="text" name="username">
-    <p>
-    Salasana: <input type="password" name="password">
-    <p>
-    <input type="submit" value="Kirjaudu"> &ensp; <a href="/register">Luo uusi tunnus</a>
+    <label for="username">Tunnus:</label>
+    <input type="text" name="username">
+    <label for="password">Salasana:</label>
+    <input type="password" name="password">
+    <input id="login" type="submit" value="Kirjaudu"> <a href="/register">Luo uusi tunnus</a>
     </form>
 </div>
 {% endblock %}

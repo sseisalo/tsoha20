@@ -4,11 +4,11 @@
 
 <div class="empty bg">
     <form action="/register" method="post">
-        Tunnus: <input type="text" name="username">
-        <p>
-        Salasana: <input type="password" name="password">
-        <p>
-        <input type="submit" value="Luo tunnus">
+        <label for="username">Tunnus:</label>
+        <input type="text" name="username">
+        <label for="password">Salasana:</label>
+        <input type="password" name="password">
+        <input id="login" type="submit" value="Luo tunnus">
     </form>
 </div>
 {% endblock %}
