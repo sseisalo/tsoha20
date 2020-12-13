@@ -29,6 +29,8 @@ def send_post_vote(vote, post_id):
         sql = "UPDATE votes SET vote=:vote WHERE post_id=:post_id AND user_id=:user_id"
         db.session.execute(sql, {"vote":vote, "post_id":post_id, "user_id":user_id})
         db.session.commit()
+
+    return True
     
 def send_comment_vote(vote, comment_id):
     user_id = users.user_id()
@@ -46,3 +48,5 @@ def send_comment_vote(vote, comment_id):
         sql = "UPDATE votes SET vote=:vote WHERE comment_id=:comment_id AND user_id=:user_id"
         db.session.execute(sql, {"vote":vote, "comment_id":comment_id, "user_id":user_id})
         db.session.commit()
+
+    return True
