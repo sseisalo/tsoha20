@@ -9,5 +9,9 @@ Projekti on Redditin/Jodelin kaltainen keskustelusovellus. Kommentoitavat keskus
 # Sovelluksen nykytilanne
 * Sovellus löytyy [täältä.](https://zzlo-keskustelusovellus.herokuapp.com/)
 * Sovelluksessa on perustoiminnallisuus rekisteröitymiselle ja kirjautumiselle, kanaville/syötteille, uusille aloituksille, sekä kommennoinnille.
-* Kanaville ei ole vielä luotu hakutoimintoa, kanaville pääsee tällä hetkellä vain joko olemassaolevan aloituksen kautta tai syöttämällä urliin /ch/\<kanava>, kun \<kanava> on haluttu kanava. 
-* Sovelluksessa on testikäyttäjä, tunnus:salasana: test:test.
+* ~~Kanaville ei ole vielä luotu hakutoimintoa, kanaville pääsee tällä hetkellä vain joko olemassaolevan aloituksen kautta tai syöttämällä urliin /ch/\<kanava>, kun \<kanava> on haluttu kanava.~~ Hakutoiminto on luotu. Toiminnon käytettävyys mobiililla on noin 0%, mutta sivulliset uhrit ovat välttämättömiä.
+* CSS on pitkälti valmis
+* Sovelluksessa on testikäyttäjä, tunnus:salasana: testi:testi123.
+
+
+Sovellus ei ole aivan valmis, mutta tulevien ominaisuuksien lisäämisessä ei tule kestämään kauan. Lisättäviä ominaisuuksia on moderaattorikäyttäjät, aloituksien äänestys, sekä viestien kommentointi/poistaminen.
