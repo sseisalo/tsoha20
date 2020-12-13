@@ -150,7 +150,8 @@ def remove_comment():
 def vote_post():
     post_id = request.args.get("post_id")
     vote = request.args.get("vote")
-    votes.send_post_vote(vote, post_id)
+    if not votes.send_post_vote(vote, post_id):
+        flash("Kirjaudu äänestääksesi")
 
     return redirect(request.referrer)
 
@@ -158,6 +159,7 @@ def vote_post():
 def vote_comment():
     comment_id = request.args.get("comment_id")
     vote = request.args.get("vote")
-    votes.send_comment_vote(vote, comment_id)
+    if not votes.send_comment_vote(vote, comment_id):
+        flash("Kirjaudu äänestääksesi")
 
     return redirect(request.referrer)
