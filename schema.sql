@@ -2,8 +2,7 @@ CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username TEXT UNIQUE,
     password TEXT,
-    user_type INTEGER,
-    CONSTRAINT CHK_user CHECK (user_type<=1 AND user_type>=0)
+    user_type INTEGER
 );
 CREATE TABLE channels (
     id SERIAL PRIMARY KEY,
@@ -14,12 +13,14 @@ CREATE TABLE posts (
     content TEXT,
     channel_id INTEGER REFERENCES channels,
     user_id INTEGER REFERENCES users,
-    sent_at TIMESTAMP
+    sent_at TIMESTAMP,
+    visible INTEGER
 );
 CREATE TABLE comments (
     id SERIAL PRIMARY KEY,
     content TEXT,
     user_id INTEGER REFERENCES users,
     post_id INTEGER REFERENCES posts,
-    sent_at TIMESTAMP
+    sent_at TIMESTAMP,
+    visible INTEGER
 );

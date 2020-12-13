@@ -110,3 +110,17 @@ def search(channel_name):
     list = posts.search_posts(query)
 
     return render_template("search.html",channel_name=channel_name,posts=list,query=query)
+
+@app.route("/removepost",methods=["GET"])
+def remove_post():
+    post_id = request.args.get("post_id")
+    posts.delete_post(post_id)
+
+    return redirect(request.referrer)
+
+@app.route("/removecomment",methods=["GET"])
+def remove_comment():
+    comment_id = request.args.get("comment_id")
+    comments.delete_comment(comment_id)
+
+    return redirect(request.referrer)

@@ -39,7 +39,7 @@ body {
     text-decoration: none;
 }
 
-form:not(#search-form):not(#comment-form){
+form:not(#search-form):not(#comment-form):not(#remove){
     padding: 20em 0;
     text-align: center;
     overflow: hidden;

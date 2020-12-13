@@ -7,12 +7,20 @@
 {% if posts %}
 {% for post in posts %}
 <div class="post col">
-    <p>{{ post[0] }}</p>
-    <p id="post_info">{{ post[1] }} &ensp; {{ post[2].strftime("%d.%m.%y, %H:%M:%S") }} &ensp; <a href="/ch/{{ post[3] }}/{{ post[4] }}">Kommentit</a> &ensp; <a href="/ch/{{ post[3] }}">/{{ post[3] }}/</a></p>
+    <div>{{ post[0] }}</div>
+    <p></p>
+    <div id="post_info" style="display: inline-block;">{{ post[1] }} &ensp; {{ post[2].strftime("%d.%m.%y, %H:%M:%S") }} &ensp; <a href="/ch/{{ post[3] }}/{{ post[4] }}">kommentit</a> &ensp; <a href="/ch/{{ post[3] }}">/{{ post[3] }}/</a>
+    {% if session.user_type %} 
+         &ensp; <form id="remove" style="display: inline-block;" action="/removepost" method="GET">
+            <a href="javascript:;" onclick="parentNode.submit(); return false">poista</a>
+            <input type="hidden" name="post_id" value="{{ post[4] }}">
+        </form>
+    {% endif %}
+    </div>
 </div>
 {% endfor %}
 {% else %}
-<div class="empty col"><p class="empty-message">Täällä ei ole mitään. <a href="/ch/{{ channel_name }}/new">Luo ensimmäinen aloitus!</a></p></div>
+<div class="empty col bg"><p class="empty-message">Täällä ei ole mitään. <a href="/ch/{{ channel_name }}/new">Luo ensimmäinen aloitus!</a></p></div>
 {% endif %}
 
 {% endblock %}

@@ -27,8 +27,17 @@
 
 {% for comment in comments %}
 <div class="post col">
-    <p id="post_info">{{ comment[1] }} | {{ comment[2].strftime("%d.%m.%y, %H:%M:%S") }}</p>
-    <p>{{ comment[0] }}</p>
+    {% if comment[4] == 1 %}
+    <div style="display: inline-block;" id="comment-info">{{ comment[1] }} | {{ comment[2].strftime("%d.%m.%y, %H:%M:%S") }} 
+        &ensp; <form style="display: inline-block;" id="remove" style="display: inline-block;" action="/removecomment" method="GET">
+            <a href="javascript:;" onclick="parentNode.submit(); return false">poista</a>
+            <input type="hidden" name="comment_id" value="{{ comment[3] }}">
+        </form>
+    </div>
+    <div id="comment">{{ comment[0] }}</div>
+    {% else %}
+    <div>Tämä kommentti on poistettu</div>
+    {% endif %}
 </div>
 {% endfor %}
 

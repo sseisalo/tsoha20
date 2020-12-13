@@ -12,11 +12,14 @@ def login(username,password):
         if check_password_hash(user[0],password):
             session["user_id"] = user[1]
             session["user_name"] = username
+            is_moderator()
             return True
         else:
             return False
 
 def logout():
+    if is_moderator():
+        del session["user_type"]
     del session["user_id"]
     del session["user_name"]
 
@@ -32,3 +35,15 @@ def register(username,password):
 
 def user_id():
     return session.get("user_id",0)
+
+def is_moderator():
+    user = user_id()
+
+    sql = "SELECT user_type FROM users WHERE id=:user_id"
+    result = db.session.execute(sql, {"user_id":user})
+    user_type = result.fetchone()
+    if user_type[0] == 1:
+        session["user_type"] = user_type[0]
+        return True
+    else:
+        return False
