@@ -12,10 +12,33 @@
     <div id="post_info" style="display: inline-block;">{{ post[1] }} &ensp; {{ post[2].strftime("%d.%m.%y, %H:%M:%S") }} &ensp; <a href="/ch/{{ post[3] }}/{{ post[4] }}">kommentit</a> &ensp; <a href="/ch/{{ post[3] }}">/{{ post[3] }}/</a>
     {% if session.user_type or session.user_id==post[5] %} 
          &ensp; <form id="remove" style="display: inline-block;" action="/removepost" method="GET">
-            <a href="javascript:;" onclick="parentNode.submit(); return false">poista</a>
+            <a href="javascript:;" onclick="parentNode.submit(); return false;">poista</a>
             <input type="hidden" name="post_id" value="{{ post[4] }}">
         </form>
     {% endif %}
+        <div class="votes" id="vote-parent">
+            <form class="votes" action="/votepost" method="GET">
+                {% if post[7]==1 %}
+                <a id="upvoted" href="javascript:;" onclick="parentNode.submit(); return false;">+</a>
+                <input type="hidden" name="vote" value=0>
+                {% else %}
+                <a href="javascript:;" onclick="parentNode.submit(); return false;">+</a>
+                <input type="hidden" name="vote" value=1>
+                {% endif %}
+                <input type="hidden" name="post_id" value="{{ post[4] }}">
+            </form>
+            <div class="votes">{{ post[6] }}</div>
+            <form class="votes" action="/votepost" method="GET">
+                {% if post[7]==-1 %}
+                <a id="minus-downvoted" href="javascript:;" onclick="parentNode.submit(); return false;">-</a>
+                <input type="hidden" name="vote" value=0>
+                {% else %}
+                <a id="minus" href="javascript:;" onclick="parentNode.submit(); return false;">-</a>
+                <input type="hidden" name="vote" value=-1>
+                {% endif %}
+                <input type="hidden" name="post_id" value="{{ post[4] }}">
+            </form>
+        </div>
     </div>
 </div>
 {% endfor %}

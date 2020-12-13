@@ -4,8 +4,10 @@ import posts
 import users
 
 def get_comments(post_id):
-    sql = "SELECT C.content, U.username, C.sent_at, C.id, C.visible, C.user_id FROM Comments C, Users U WHERE C.post_id=:post_id AND U.id=C.user_id ORDER BY C.id DESC"
-    result = db.session.execute(sql, {"post_id":post_id})
+    user_id = users.user_id()
+
+    sql = "SELECT C.content, U.username, C.sent_at, C.id, C.visible, C.user_id, (SELECT COALESCE(SUM(vote),0) FROM votes V WHERE V.comment_id=C.id), (SELECT COALESCE(SUM(vote),0) FROM votes VO WHERE VO.user_id=:user AND VO.comment_id=C.id) FROM Comments C, Users U WHERE C.post_id=:post_id AND U.id=C.user_id ORDER BY C.id DESC"
+    result = db.session.execute(sql, {"user":user_id, "post_id":post_id})
     return result.fetchall()
 
 def send(content, post_id):

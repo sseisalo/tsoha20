@@ -39,7 +39,7 @@ body {
     text-decoration: none;
 }
 
-form:not(#search-form):not(#comment-form):not(#remove){
+form:not(#search-form):not(#comment-form):not(#remove):not(.votes){
     padding: 20em 0;
     text-align: center;
     overflow: hidden;
@@ -55,7 +55,7 @@ form:not(#search-form):not(#comment-form):not(#remove){
     overflow-wrap: break-word;
 }
 
-.post div:not(.search-result){
+.post div:not(.search-result):not(.votes){
     padding: 1em .625em 0em;
     font-size: 125%;
 }
@@ -76,9 +76,45 @@ form:not(#search-form):not(#comment-form):not(#remove){
     padding: 0 .925em;
 }
 
+.votes {
+    display: inline-block;
+    font-size: 125%;
+}
+
+.votes a{
+    padding: .5em .764em;
+    background-color: #ffdcb4;
+    border-radius: 1em;
+    text-decoration: none;
+    font-weight: bold;
+    color: #000;
+}
+
+#minus {
+    padding: .5em .89em;
+}
+
+#minus-downvoted {
+    background-color: royalblue;
+    padding: .5em .89em;
+}
+
+#vote-parent {
+    line-height: .7em;
+}
+
+#vote-parent, #vote-parent-comment {
+    right: 3%;
+    position: absolute;
+}
+
+#upvoted {
+    background-color: orangered;
+}
+
 #comment-info {
     font-size: 90%;
-    padding: .925em .925em 0;
+    padding: 1.3em .925em 0;
 }
 
 #comment {
@@ -177,7 +213,8 @@ a:hover:not(.topnav a) {
     .col {width: 55%; margin: auto; margin-bottom: .625em;}
     .topnav {left: 22.5%;}
     .sidebar {width: 15%; margin: auto; margin-right: .5em; position: fixed; right: 0;}
-    .sidebar-new {top: 11.5em;}
+    .sidebar-new {top: 11.25em;}
     .empty {left: 22.75%; width: 54.5%; height: 90%;}
     .message {position: fixed; width: 15%; min-height: 5.8em;}
+    #vote-parent, #vote-parent-comment {right: 24%;}
 }

@@ -24,3 +24,12 @@ CREATE TABLE comments (
     sent_at TIMESTAMP,
     visible INTEGER
 );
+CREATE TABLE votes (
+    id SERIAL PRIMARY KEY,
+    vote INTEGER
+    user_id INTEGER REFERENCES users,
+    post_id INTEGER REFERENCES posts,
+    comment_id INTEGER REFERENCES comments,
+    UNIQUE(user_id,post_id),
+    UNIQUE(user_id,comment_id)
+);

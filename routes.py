@@ -134,3 +134,19 @@ def remove_comment():
         flash("Kommentin poisto epäonnistui")
 
     return redirect(request.referrer)
+
+@app.route("/votepost",methods=["GET"])
+def vote_post():
+    post_id = request.args.get("post_id")
+    vote = request.args.get("vote")
+    votes.send_post_vote(vote, post_id)
+
+    return redirect(request.referrer)
+
+@app.route("/votecomment",methods=["GET"])
+def vote_comment():
+    comment_id = request.args.get("comment_id")
+    vote = request.args.get("vote")
+    votes.send_comment_vote(vote, comment_id)
+
+    return redirect(request.referrer)

@@ -4,12 +4,14 @@ import users
 import channels
 
 def get_posts(channel_name):
+    user_id = users.user_id()
+
     if channel_name == "":
-        sql = "SELECT P.content, U.username, P.sent_at, C.name, P.id, P.user_id FROM Posts P, Users U, Channels C WHERE P.user_id=U.id AND C.id=P.channel_id AND P.visible=1 ORDER BY P.id DESC"
-        result = db.session.execute(sql)
+        sql = "SELECT P.content, U.username, P.sent_at, C.name, P.id, P.user_id, (SELECT COALESCE(SUM(vote),0) FROM votes V WHERE V.post_id=P.id), (SELECT COALESCE(SUM(vote),0) FROM votes VO WHERE VO.user_id=:user AND VO.post_id=P.id) FROM Posts P, Users U, Channels C WHERE P.user_id=U.id AND C.id=P.channel_id AND P.visible=1 ORDER BY P.id DESC"
+        result = db.session.execute(sql, {"user":user_id})
     else:
-        sql = "SELECT P.content, U.username, P.sent_at, C.name, P.id, P.user_id FROM Posts P, Users U, Channels C WHERE P.user_id = U.id AND C.name=LOWER(:channel_name) AND C.id=P.channel_id AND P.visible=1 ORDER BY P.id DESC"
-        result = db.session.execute(sql, {"channel_name":channel_name})
+        sql = "SELECT P.content, U.username, P.sent_at, C.name, P.id, P.user_id, (SELECT COALESCE(SUM(vote),0) FROM votes V WHERE V.post_id=P.id), (SELECT COALESCE(SUM(vote),0) FROM votes VO WHERE VO.user_id=:user AND VO.post_id=P.id) FROM Posts P, Users U, Channels C WHERE P.user_id=U.id AND C.name=LOWER(:channel_name) AND C.id=P.channel_id AND P.visible=1 ORDER BY P.id DESC"
+        result = db.session.execute(sql, {"user":user_id, "channel_name":channel_name})
     return result.fetchall()
 
 def send(content, channel_name):
@@ -24,16 +26,19 @@ def send(content, channel_name):
     return True
 
 def get_post(post_id):
-    sql = "SELECT P.content, U.username, P.user_id, P.id FROM Posts P, Users U WHERE P.id=:post_id AND U.id=P.user_id AND P.visible=1"
-    result = db.session.execute(sql, {"post_id":post_id})
+    user_id = users.user_id()
+
+    sql = "SELECT P.content, U.username, P.sent_at, C.name, P.id, P.user_id, (SELECT COALESCE(SUM(vote),0) FROM votes V WHERE V.post_id=P.id), (SELECT COALESCE(SUM(vote),0) FROM votes VO WHERE VO.user_id=:user AND VO.post_id=P.id) FROM Posts P, Users U, Channels C WHERE P.id=:post_id AND P.user_id=U.id AND C.id=P.channel_id AND P.visible=1"
+    result = db.session.execute(sql, {"user":user_id, "post_id":post_id})
     return result.fetchone()
 
 def search_posts(query):
-    sql = "SELECT P.content, U.username, P.sent_at, C.name, P.id FROM Posts P, Users U, Channels C WHERE U.id=P.user_id AND C.id=P.channel_id AND (P.content ILIKE :query OR C.name=:query_channel) AND P.visible=1"
+    user_id = users.user_id()
+    
+    sql = "SELECT P.content, U.username, P.sent_at, C.name, P.id, P.user_id, (SELECT COALESCE(SUM(vote),0) FROM votes V WHERE V.post_id=P.id), (SELECT COALESCE(SUM(vote),0) FROM votes VO WHERE VO.user_id=:user AND VO.post_id=P.id) FROM Posts P, Users U, Channels C WHERE U.id=P.user_id AND C.id=P.channel_id AND (P.content ILIKE :query OR C.name=:query_channel) AND P.visible=1"
     query_channel = query.lower()
     query = "%"+query+"%"
-    print(query_channel)
-    result = db.session.execute(sql, {"query":query.lower(), "query_channel":query_channel})
+    result = db.session.execute(sql, {"user":user_id, "query":query.lower(), "query_channel":query_channel})
     return result.fetchall()
 
 def delete_post(post_id):
