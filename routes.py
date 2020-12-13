@@ -4,13 +4,14 @@ import users
 import posts
 import channels
 import comments
+import votes
 
 @app.route("/")
 def index():
     list = posts.get_posts("")
     return render_template("feed_layout.html",posts=list,channel_name="main",title="Etusivu")
 
-@app.route("/login",methods=["GET","POST"])
+@app.route("/login/",methods=["GET","POST"])
 def login():
     if request.method == "GET":
         return render_template("login.html")
@@ -24,13 +25,13 @@ def login():
             flash("Kirjautuminen epäonnistui")
             return redirect(url_for("login"))
 
-@app.route("/logout")
+@app.route("/logout/")
 def logout():
     users.logout()
     flash("Kirjauduttu ulos")
     return redirect("/")
 
-@app.route("/register",methods=["GET","POST"])
+@app.route("/register/",methods=["GET","POST"])
 def register():
     if request.method == "GET":
         return render_template("register.html")
@@ -53,7 +54,7 @@ def register():
             flash("Tämä tunnus on jo olemassa")
             return redirect(url_for("register"))
 
-@app.route("/ch/<string:channel_name>/new",methods=["GET","POST"])
+@app.route("/ch/<string:channel_name>/new/",methods=["GET","POST"])
 def new(channel_name):
     if request.method == "GET":
         return render_template("new.html",channel_name=channel_name)
@@ -72,7 +73,7 @@ def new(channel_name):
             flash("Aloitus luotu")
             return redirect(url_for("channel",channel_name=channel_name))
 
-@app.route("/ch/<string:channel_name>")
+@app.route("/ch/<string:channel_name>/")
 def channel(channel_name):
     list = posts.get_posts(channel_name)
     title = "/ch/" + channel_name
@@ -82,7 +83,7 @@ def channel(channel_name):
         flash("Kanavaa " + channel_name + " ei ole olemassa")
         return redirect("/")
 
-@app.route("/ch/<string:channel_name>/<int:post_id>",methods=["GET","POST"])
+@app.route("/ch/<string:channel_name>/<int:post_id>/",methods=["GET","POST"])
 def post(channel_name,post_id):
     if posts.is_deleted(post_id):
         return redirect(url_for("channel",channel_name=channel_name))
@@ -107,7 +108,7 @@ def post(channel_name,post_id):
             flash("Viesti lähetetty")
             return redirect(request.url)
 
-@app.route("/ch/<string:channel_name>/search",methods=["GET"])
+@app.route("/ch/<string:channel_name>/search/",methods=["GET"])
 def search(channel_name):
     query = request.args.get("query")
     list = posts.search_posts(query)
