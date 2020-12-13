@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, redirect, request, session, url_for, flash
+from flask import render_template, redirect, request, session, url_for, flash, abort
 import users
 import posts
 import channels
@@ -59,6 +59,9 @@ def new(channel_name):
     if request.method == "GET":
         return render_template("new.html",channel_name=channel_name)
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
+
         content = request.form["content"]
         if len(content) < 3:
             flash("Aloitus on liian lyhyt! \n (alle 3 merkkiä)")
@@ -94,6 +97,8 @@ def post(channel_name,post_id):
     if request.method == "GET":
         return render_template("post.html",comments=list,post=post,channel_name=channel_name,post_id=post_id)
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
         comment = request.form["comment"]
         if len(comment) < 1:
             flash("Viesti oli tyhjä")
