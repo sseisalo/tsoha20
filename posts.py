@@ -7,10 +7,12 @@ def get_posts(channel_name):
     user_id = users.user_id()
 
     if channel_name == "":
-        sql = "SELECT P.content, U.username, P.sent_at, C.name, P.id, P.user_id, (SELECT COALESCE(SUM(vote),0) FROM votes V WHERE V.post_id=P.id), (SELECT COALESCE(SUM(vote),0) FROM votes VO WHERE VO.user_id=:user AND VO.post_id=P.id) FROM Posts P, Users U, Channels C WHERE P.user_id=U.id AND C.id=P.channel_id AND P.visible=1 ORDER BY P.id DESC"
+        sql = "SELECT P.content, U.username, P.sent_at, C.name, P.id, P.user_id, (SELECT COALESCE(SUM(vote),0) FROM votes V WHERE V.post_id=P.id), (SELECT COALESCE(SUM(vote),0) " \
+              "FROM votes VO WHERE VO.user_id=:user AND VO.post_id=P.id) FROM Posts P, Users U, Channels C WHERE P.user_id=U.id AND C.id=P.channel_id AND P.visible=1 ORDER BY P.id DESC"
         result = db.session.execute(sql, {"user":user_id})
     else:
-        sql = "SELECT P.content, U.username, P.sent_at, C.name, P.id, P.user_id, (SELECT COALESCE(SUM(vote),0) FROM votes V WHERE V.post_id=P.id), (SELECT COALESCE(SUM(vote),0) FROM votes VO WHERE VO.user_id=:user AND VO.post_id=P.id) FROM Posts P, Users U, Channels C WHERE P.user_id=U.id AND C.name=LOWER(:channel_name) AND C.id=P.channel_id AND P.visible=1 ORDER BY P.id DESC"
+        sql = "SELECT P.content, U.username, P.sent_at, C.name, P.id, P.user_id, (SELECT COALESCE(SUM(vote),0) FROM votes V WHERE V.post_id=P.id), (SELECT COALESCE(SUM(vote),0) " \
+              "FROM votes VO WHERE VO.user_id=:user AND VO.post_id=P.id) FROM Posts P, Users U, Channels C WHERE P.user_id=U.id AND C.name=LOWER(:channel_name) AND C.id=P.channel_id AND P.visible=1 ORDER BY P.id DESC"
         result = db.session.execute(sql, {"user":user_id, "channel_name":channel_name})
     return result.fetchall()
 
