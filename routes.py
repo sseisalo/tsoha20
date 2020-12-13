@@ -117,13 +117,19 @@ def search(channel_name):
 @app.route("/removepost",methods=["GET"])
 def remove_post():
     post_id = request.args.get("post_id")
-    posts.delete_post(post_id)
+    if posts.delete_post(post_id):
+        flash("Aloitus poistettu")
+    else:
+        flash("Aloituksen poisto epäonnistui")
 
     return redirect(request.referrer)
 
 @app.route("/removecomment",methods=["GET"])
 def remove_comment():
     comment_id = request.args.get("comment_id")
-    comments.delete_comment(comment_id)
+    if comments.delete_comment(comment_id):
+        flash("Kommentti poistettu")
+    else:
+        flash("Kommentin poisto epäonnistui")
 
     return redirect(request.referrer)

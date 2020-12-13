@@ -19,10 +19,12 @@ def send(content, post_id):
 
 def delete_comment(comment_id):
     if users.is_moderator() or is_users_comment(comment_id):
-        print("wtf")
         sql = "UPDATE comments SET visible=0 WHERE id=:comment_id"
         db.session.execute(sql, {"comment_id":comment_id})
         db.session.commit()
+        return True
+
+    return False
 
 def is_users_comment(comment_id):
     user_id = users.user_id()

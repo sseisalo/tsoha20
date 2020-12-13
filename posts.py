@@ -41,6 +41,9 @@ def delete_post(post_id):
         sql = "UPDATE posts SET visible=0 WHERE id=:post_id"
         db.session.execute(sql, {"post_id":post_id})
         db.session.commit()
+        return True
+    
+    return False
 
 def is_users_post(post_id):
     user_id = users.user_id()
