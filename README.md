@@ -1,17 +1,10 @@
 # keskustelusovellus
-Projekti on Redditin/Jodelin kaltainen keskustelusovellus. Kommentoitavat keskustelualoitukset luodaan tietylle "feedille", jotka näkyvät käyttäjälle tämän selatessa kyseistä feediä tai kaikki aloitukset sisältävää etusivua. Käyttäjä voi olla joko peruskäyttäjä, joka voi kommentoida, tehdä aloituksia, sekä tilata haluamiaan feedejä, tai moderaattori, joka voi peruskäyttäjän toimintojen lisäksi poistaa asiattomia viestejä/käyttäjiä ja estää tietyille feedeille kirjoittamisen.
+- Sovellus löytyy [täältä.](https://zzlo-keskustelusovellus.herokuapp.com/)
+  - Sovelluksessa on testikäyttäjä moderaattorityökaluilla, tunnus:salasana: testi:testi123.
+  
+Projeki on redditin / jodelin välimaastossa liikkuva keskustelusovellus. Alustalle voi luoda uusia kanavia, joihin luoda uusia aloituksia, joita voidaan myös kommentoida.  Sovellukseen luodaan aluksi oma käyttäjätili, ilman tätä käyttö rajoittuu vain aloituksien ja kommenttien lukemiseen. Muut toiminnot ollaan luotu enemmän tai vähemmän sovelluksen perusperiaatteiden avuksi, ne on listattuna tässä:
 
-# Muita keskeisiä toimintoja
-* Jokainen käyttäjä voi arvostella keskustelunaloituksia ja kommentteja antamalla niille joka ylä- tai alapeukun. Aloituksen tai kommentin suosio lasketaan pisteillä, jonka kaava on (yläpeukut - alapeukut).
-* Aloituksia voidaan etsiä merkkijonohaulla, ja tulokset voidaan järjestää julkaisuajankohdan tai aloituksen suosion perusteella.
-* Viestejä voidaan luonnollisesti muokata ja poistaa jälkikäteen, mutta aloituksen voi vain poistaa (jolloin aloituksen alla olevat kommentit poistuvat samalla).
-
-# Sovelluksen nykytilanne
-* Sovellus löytyy [täältä.](https://zzlo-keskustelusovellus.herokuapp.com/)
-* Sovelluksessa on perustoiminnallisuus rekisteröitymiselle ja kirjautumiselle, kanaville/syötteille, uusille aloituksille, sekä kommennoinnille.
-* ~~Kanaville ei ole vielä luotu hakutoimintoa, kanaville pääsee tällä hetkellä vain joko olemassaolevan aloituksen kautta tai syöttämällä urliin /ch/\<kanava>, kun \<kanava> on haluttu kanava.~~ Hakutoiminto on luotu. Toiminnon käytettävyys mobiililla on noin 0%, mutta sivulliset uhrit ovat välttämättömiä.
-* CSS on pitkälti valmis
-* Sovelluksessa on testikäyttäjä, tunnus:salasana: testi:testi123.
-
-
-Sovellus ei ole aivan valmis, mutta tulevien ominaisuuksien lisäämisessä ei tule kestämään kauan. Lisättäviä ominaisuuksia on moderaattorikäyttäjät, aloituksien äänestys, sekä viestien kommentointi/poistaminen.
+- Jokaisella aloituksella ja kommentilla on oma "pistesaldonsa", jonka kaava on yksinkertaisesti (plussat - miinukset). 
+- Moderaattori voi poistaa minkä tahansa aloituksen/kommentin, tavallinen käyttäjä vain omia aloituksiaan ja kommenttejaan. Kommenttien poistaminen jättää kuitenkin tiedon viestin olemassaolosta.
+- Sovelluksessa on haku, jolla voi etsiä sekä aloituksia, että jonkin tietyn kanavan. Aloitukset voi järjestää joko pistesaldon tai päiväyksen perusteella.
+- Sovellusta pystyy nyt käyttämään pienemmilläkin näytöillä, vaikka käyttökokemus luultavasti kärsiikin.
