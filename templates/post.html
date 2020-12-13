@@ -66,13 +66,36 @@
             <input type="hidden" name="comment_id" value="{{ comment[3] }}">
         </form>
         {% endif %}
+        <div class="votes" id="vote-parent-comment">
+            <form class="votes" action="/votecomment" method="GET">
+                {% if comment[7]==1 %}
+                <a id="upvoted" href="javascript:;" onclick="parentNode.submit(); return false;">+</a>
+                <input type="hidden" name="vote" value=0>
+                {% else %}
+                <a href="javascript:;" onclick="parentNode.submit(); return false;">+</a>
+                <input type="hidden" name="vote" value=1>
+                {% endif %}
+                <input type="hidden" name="comment_id" value="{{ comment[3] }}">
+            </form>
+            <div class="votes">{{ comment[6] }}</div>
+            <form class="votes" action="/votecomment" method="GET">
+                {% if comment[7]==-1 %}
+                <a id="minus-downvoted" href="javascript:;" onclick="parentNode.submit(); return false;">-</a>
+                <input type="hidden" name="vote" value=0>
+                {% else %}
+                <a id="minus" href="javascript:;" onclick="parentNode.submit(); return false;">-</a>
+                <input type="hidden" name="vote" value=-1>
+                {% endif %}
+                <input type="hidden" name="comment_id" value="{{ comment[3] }}">
+            </form>
+        </div>
     </div>
     {% if session.user_id!=comment[5] %}
     <p>
     {% endif %}
     <div id="comment">{{ comment[0] }}</div>
     {% else %}
-    <div>Tämä kommentti on poistettu</div>
+    <div id="message-deleted">Tämä kommentti on poistettu</div>
     {% endif %}
 </div>
 {% endfor %}

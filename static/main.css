@@ -64,6 +64,7 @@ form:not(#search-form):not(#comment-form):not(#remove):not(.votes){
     font-size: 150%;
     font-weight: bold;
     padding-left: .5em;
+    padding-top: .7em;
 }
 
 #post-creator {
@@ -177,6 +178,10 @@ form:not(#search-form):not(#comment-form):not(#remove):not(.votes){
 .message p {
     padding: 1em 0;
     text-align: center;
+}
+
+#message-deleted {
+    padding-top: 1.75em;
 }
 
 .empty {

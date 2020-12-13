@@ -7,7 +7,7 @@
 <div class="topbar"></div>
 
 <div class="topnav col">
-    <h3><a href="/">etusivu</a> | <a href="/ch/{{ channel_name }}">/ch/{{ channel_name }}</a></h3>
+    <h3><a href="/">etusivu</a> {% if channel_name %} | <a href="/ch/{{ channel_name }}">/ch/{{ channel_name }}</a>{% endif %}</h3>
     {% if session.user_id %}
     <p>{{ session["user_name"] }} | <a href="/logout">Kirjaudu ulos</a></p>
     {% else %}
