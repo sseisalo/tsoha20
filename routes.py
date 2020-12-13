@@ -84,6 +84,9 @@ def channel(channel_name):
 
 @app.route("/ch/<string:channel_name>/<int:post_id>",methods=["GET","POST"])
 def post(channel_name,post_id):
+    if posts.is_deleted(post_id):
+        return redirect(url_for("channel",channel_name=channel_name))
+
     list = comments.get_comments(post_id)
     post = posts.get_post(post_id)
     

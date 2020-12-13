@@ -10,7 +10,7 @@
     <div>{{ post[0] }}</div>
     <p></p>
     <div id="post_info" style="display: inline-block;">{{ post[1] }} &ensp; {{ post[2].strftime("%d.%m.%y, %H:%M:%S") }} &ensp; <a href="/ch/{{ post[3] }}/{{ post[4] }}">kommentit</a> &ensp; <a href="/ch/{{ post[3] }}">/{{ post[3] }}/</a>
-    {% if session.user_type %} 
+    {% if session.user_type or session.user_id==post[5] %} 
          &ensp; <form id="remove" style="display: inline-block;" action="/removepost" method="GET">
             <a href="javascript:;" onclick="parentNode.submit(); return false">poista</a>
             <input type="hidden" name="post_id" value="{{ post[4] }}">

@@ -5,9 +5,15 @@
 <div class="empty col"></div>
 
 <div class="post col">
-    <h2>{{ post[0] }}</h2> 
-    {{ post[1] }}
-    <p></p>
+    <div id="post-title">{{ post[0] }}</div>
+    <div id="post-creator" style="display: inline-block;">{{ post[1] }}
+    {% if session.user_type or session.user_id==post[2] %} 
+         &ensp; <form id="remove" style="display: inline-block;" action="/removepost" method="GET">
+            <a href="javascript:;" onclick="parentNode.submit(); return false">poista</a>
+            <input type="hidden" name="post_id" value="{{ post[3] }}">
+        </form>
+    {% endif %}
+    </div>
 </div>
 
 <div class="col new-comment"> 
@@ -28,12 +34,17 @@
 {% for comment in comments %}
 <div class="post col">
     {% if comment[4] == 1 %}
-    <div style="display: inline-block;" id="comment-info">{{ comment[1] }} | {{ comment[2].strftime("%d.%m.%y, %H:%M:%S") }} 
+    <div style="display: inline-block;" id="comment-info">{{ comment[1] }} | {{ comment[2].strftime("%d.%m.%y, %H:%M:%S") }}
+        {% if session.user_id==comment[5] %} 
         &ensp; <form style="display: inline-block;" id="remove" style="display: inline-block;" action="/removecomment" method="GET">
             <a href="javascript:;" onclick="parentNode.submit(); return false">poista</a>
             <input type="hidden" name="comment_id" value="{{ comment[3] }}">
         </form>
+        {% endif %}
     </div>
+    {% if session.user_id!=comment[5] %}
+    <p>
+    {% endif %}
     <div id="comment">{{ comment[0] }}</div>
     {% else %}
     <div>Tämä kommentti on poistettu</div>
